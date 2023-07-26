@@ -24,8 +24,8 @@
 
         .baowei {
             width: 43.75rem;
-            height: 37.5rem;
-            border: .0625rem solid #000;
+            height:100%;
+            /* border: .0625rem solid #000; */
         }
 
         .title {
@@ -66,16 +66,16 @@
                             <a-form-model layout="inline" :model="formInline" @submit="handleSubmit"
                                 @submit.native.prevent>
                                 <a-form-model-item>
-                                    <a-input style="width:12.5rem;" v-model="formInline.user" placeholder="手机号">
+                                    <a-input style="width:8.5rem;" v-model="formInline.user" placeholder="手机号">
                                         <a-icon slot="prefix" type="user" style="color:rgba(0,0,0,.25)" />
                                     </a-input>
                                 </a-form-model-item>
                                 <a-form-model-item>
-                                    <a-input style="width:12.5rem;" v-model="formInline.password" type="password"
+                                    <a-input style="width:8.5rem;" v-model="formInline.password" type="password"
                                         placeholder="密码">
                                         <a-icon slot="prefix" type="lock" style="color:rgba(0,0,0,.25)" />
                                     </a-input>
-                                    <a-input style="width:12.5rem;" v-model="formInline.token" placeholder="token">
+                                    <a-input style="width:8.5rem;" v-model="formInline.token" placeholder="token">
                                         <a-icon slot="prefix" type="lock" style="color:rgba(0,0,0,.25)" />
                                     </a-input>
                                 </a-form-model-item>
@@ -95,7 +95,7 @@
                         <div>
                             <a-form-model layout="inline">
                                 <a-form-model-item label="选择商品" prop="region">
-                                    <a-select show-search :filter-option="searchBrand" style="width:12.5rem;"
+                                    <a-select show-search :filter-option="searchBrand" style="width:8.5rem;"
                                         v-model="goodsId" @change="changeClick" placeholder="选择商品">
                                         <a-select-option :value="item.id" v-for="(item,index) in goodsList"
                                             :key="index">
@@ -106,14 +106,14 @@
 
 
                                 <a-form-model-item label="下单数量" prop="region">
-                                    <a-input style="width:12.5rem;" v-model="num" />
+                                    <a-input style="width:8.5rem;" v-model="num" />
                                 </a-form-model-item>
                                 <a-form-model-item label="最高价" prop="region">
-                                    <a-input style="width:12.5rem;" v-model="price" />
+                                    <a-input style="width:8.5rem;" v-model="price" />
                                 </a-form-model-item>
 
                                 <a-form-model-item label="延迟/秒" prop="region">
-                                    <a-input style="width:12.5rem;" v-model="yanchi" />
+                                    <a-input style="width:8.5rem;" v-model="yanchi" />
                                 </a-form-model-item>
 
 
@@ -138,7 +138,8 @@
 
                 <div class="right">
                     <div class="top" style="border:.0625rem solid #000;margin: .625rem;height: 97%;">
-                        <div style="font-weight: 600;font-size: 1.5rem;">下单记录</div>
+                        <div style="font-weight: 600;font-size: 1.0rem;">下单记录</div>
+                        <div style="font-weight: 600;font-size: 1.0rem;color:red;">总下单次数{{data.length}}</div>
                         <div>
                             <!-- <a-table :columns="columns" :data-source="data"  :pagination="false">
                                
@@ -154,7 +155,7 @@
                                     v-for="(item,index) in data" :key="index">
                                     <div style="flex:1;text-align: center;">{{index}}</div>
                                     <div style="flex:1;text-align: center;">{{goodsName}}</div>
-                                    <div style="flex:1;text-align: center;">{{item.code==0?'无':'成功'}}</div>
+                                    <!-- <div style="flex:1;text-align: center;">{{item.code==0?'无':'成功'}}</div> -->
                                     <!-- <div style="flex:1;text-align: center;">{{item.url}}</div> -->
                                     <div style="flex:1;text-align: center;">{{item.msg}}</div>
 
@@ -217,11 +218,11 @@
                     dataIndex: 'name',
                     key: 'name',
                 },
-                {
-                    title: '状态',
-                    dataIndex: 'status',
-                    key: 'status',
-                },
+                // {
+                //     title: '状态',
+                //     dataIndex: 'status',
+                //     key: 'status',
+                // },
                 // {
                 //     title: '支付链接',
                 //     dataIndex: 'url',
@@ -344,8 +345,9 @@
 
 
                                 if (data.code == 1) {
-                                    console.log('API调用成功');
-                                    alert('下单成功')
+                                    that.$message.success('下单成功请前往app支付');
+                                    // console.log('API调用成功');
+                                    // alert('下单成功')
                                 } else {
                                     if (that.statusbox) {
                                         that.delay(that.yanchi); // 等待1秒后再次发起调用
